@@ -2,24 +2,46 @@
 # bs4 import BeautifulSoup 
 import json
 import boto3
+import os
 
 def lambda_handler(event, context):
-    
+    dynamodb=boto3.resource('dynamodb')
     ses = boto3.client('ses')
+    
+    table=dynamodb.Table('mytable')
+    
+    # trans = {}
+    # trans['Count'] = '0'
+    # trans['actualCount'] = 0
+    
+    # response1=table.put_item(Item=trans)
+    
+    
+    response1=table.get_item(
+        Key={
+            'Count':'0'
+        }    
+    )
+    item=response1['Item']
+    actualCount=item['actualCount']
+    actualCount=int(actualCount)
+
+    check_list=[]
+    
+    #actualCount=0
 	
-    count=0
     body = "Hi, this is an automated message from Ari. Find your daily leetcode problem below! Attempt the problem on your own first and if you're stuck then check the community tab for the solution. If you don't understand any part of the solution, come talk with us after or before the club meeting, and we can discuss it.\n"
     
     with open("question_links.txt","r") as f:
     	lines=f.readlines()
-    	body=body+str(lines[count])
+    	body=body+str(lines[actualCount])
     
 
     ses.send_email(
-	    Source = 'sender@gmail.com',
+	    Source = 'sender@email.com',
 	    Destination = {
 		    'ToAddresses': [
-			    'reciever@gmail.com'
+			    'receiver@email.com'
 		    ]
 	    },
 	    Message = {
@@ -35,7 +57,27 @@ def lambda_handler(event, context):
 		    }
 	    }
     )
-    count+=1
+    
+    actualCount+=1
+    table.update_item(
+    Key={
+        'Count':'0'
+    },
+    UpdateExpression='SET actualCount = :val1',
+    ExpressionAttributeValues={
+        ':val1': actualCount
+    }
+    )
+    
+    response3 = table.get_item(
+    Key={
+            'Count':'0'
+        }
+    )
+    item = response3['Item']
+    print(item)
+    
+    
     
     return {
         'statusCode': 200,
