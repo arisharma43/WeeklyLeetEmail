@@ -1,6 +1,6 @@
 # DailyLeetEmail
 
-### To get all questions link list, visit this URL 'https://leetcode.com/problemset/algorithms/', open up the dev console and run following code:
+#### To get all the links to all the questions, visit this URL 'https://leetcode.com/problemset/algorithms/', open up the dev console and run following code:
 
 
 ```
