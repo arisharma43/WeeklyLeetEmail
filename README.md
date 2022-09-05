@@ -1,12 +1,11 @@
 # DailyLeetEmail
 
-#### To get all the links to all the questions, visit this URL 'https://leetcode.com/problemset/algorithms/', open up the dev console and run following code:
+### This repo contains the code I created to send emails with randomized practice problems to members of CS Club 😀
+
+#### Everyone is busy during the school year so getting a chance to practice is next to impossible but with daily emails containing LeetCode problems at different levels, members are able to get in more practice! 
+
+##### This uses AWS Lambda, DynamoDB, and EventBridge to send different practice problems.
+
+###### Example Email: ![Example Picture](Images/DailyLeetExample.png) 
 
 
-```
-var links = document.getElementsByTagName('a');
-var all_links =  Array.prototype.slice.call(links);
-all_links.forEach(function(val){
-    console.log(val.href);
-});
-```
