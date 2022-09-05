@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     dynamodb=boto3.resource('dynamodb')
     ses = boto3.client('ses')
     
-    table=dynamodb.Table('mytable')
+    table=dynamodb.Table('dailyLeet')
     
     # trans = {}
     # trans['Count'] = '0'
@@ -30,7 +30,7 @@ def lambda_handler(event, context):
     
     #actualCount=0
 	
-    body = "Hi, this is an automated message from Ari. Find your daily leetcode problem below! Attempt the problem on your own first and if you're stuck then check the community tab for the solution. If you don't understand any part of the solution, come talk with us after or before the club meeting, and we can discuss it.\n"
+    body = "Hi, this is an automated message from Ari, captain of CS Club. Find your daily leetcode problem below! \n Attempt the problem on your own first and if you're stuck then check the community tab for the solution. If you don't understand any part of the solution, come talk with the captains after or before the club meeting, and we can discuss it.\n"
     
     with open("question_links.txt","r") as f:
     	lines=f.readlines()
@@ -38,10 +38,10 @@ def lambda_handler(event, context):
     
 
     ses.send_email(
-	    Source = 'sender@email.com',
+	    Source = 'arisharma2017@gmail.com',
 	    Destination = {
 		    'ToAddresses': [
-			    'receiver@email.com'
+			    'arisharma2014@hotmail.com'
 		    ]
 	    },
 	    Message = {
